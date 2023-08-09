@@ -30,7 +30,7 @@ export default function Page()
   }
 
   return (
-      <main className="m-2">
+      <main className="md:m-2">
         <NavBar handleTabChange={handleTabChange}/>
         {
           tab === "" && <MainPlaceholder/> ||

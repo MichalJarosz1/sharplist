@@ -195,10 +195,10 @@ const ProductsTab = () =>
     <div>
       <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
           <SearchBar onSearch={handleSearch} styles = "w-full bg-slate-300 rounded-r-xl rounded-l-sm"/>
-          <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 m-2" aria-hidden="true" >
+          <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 md:m-2" aria-hidden="true" >
             <NoSymbolIcon className="w-full h-full"/>
           </button>
-          <button type="button" className="h-8 w-8 text-blue-500 m-2" aria-hidden="true">
+          <button type="button" className="h-8 w-8 text-blue-500 md:m-2" aria-hidden="true">
             <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> productsMap.copyProducts()}/>
           </button>
       </div>

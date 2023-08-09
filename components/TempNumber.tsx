@@ -16,7 +16,11 @@ const TempNumber = ({value, isPresent, children, onApply}: TempNumberProps) =>
   return (
     isPresent &&
       <Menu>
-        <Menu.Button className="w-min text-gray-700 pr-2 mr-2 hover:bg-slate-600 hover:bg-opacity-20 rounded-md"> +{n} 
+        <Menu.Button className="w-min text-gray-700 md:pr-2 md:mr-2 hover:bg-slate-600 hover:bg-opacity-20 rounded-md text-xs md:text-sm"> 
+        <span className="invisible md:visible">
+          +
+        </span>
+        {n} 
         </Menu.Button>
         <Menu.Items className="absolute z-9999 backdrop-blur-sm bg-amber-300 bg-opacity-70 m-1 p-1 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <Menu.Item>

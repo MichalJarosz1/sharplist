@@ -78,7 +78,9 @@ const RecipeLine = ({data, handleChange}: DataSetProp<Recipe>) =>
             }
           </div>
         </Preview>
-        <InputAndButton title={data.tags} handleValidText={handleTagChange} />
+        {window.innerWidth > 768 &&
+          <InputAndButton title={data.tags} handleValidText={handleTagChange} />
+        }
         <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleDelete}/>
     </div>
   )

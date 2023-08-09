@@ -1,27 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* START: General styles */
+.max-width {
+  @apply max-w-[1440px] mx-auto;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.padding-x {
+  @apply sm:px-16 px-6;
+}
+
+.padding-y {
+  @apply py-4;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.custom-btn {
+  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
+}
+
+/* END: search manufacturer styles */
+
+
+/* START: some basic defs */
+
+.border-groove {
+  border-style: groove;
+}
+
+.unselectable {
+  user-select: none;
+}
+
+.text-transition {
+  transition: color 1s, font-size 1s;
+}
+
+.text-transition:hover {
+  color: #f0f0f0; /* Kolor jasniejszy */
+  font-size: 1.2em; /* 20% większy font */
+}
+
+/* END: some basic defs */
+
+/* START: Animation defs */
+.animate-pulsing
+{
+  animation-name: pulsing;
+  animation-duration: 900ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes pulsing {
+  from {color: rgb(94, 61, 0);}
+  to {color: black;}
+}
+
+/* End: Animation defs */
+
+.windows-style-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #d1d5db;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-active span::after {
+  content: '...';
+}
+
+.z-9999
+{
+  z-index: 9999;
+}
+
+textarea:focus, input:focus{
+  outline-color: slategray;
 }

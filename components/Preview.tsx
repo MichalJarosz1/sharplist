@@ -21,7 +21,7 @@ function Preview({ title, children, containerStyles,  windowStyle }: EllipsisTex
         <div>
           <Popover.Button
             id="2" // both server and client must have same ids
-            className="flex-nowrap flex justify-between w-full bg-opacity-20 px-4 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="flex-nowrap flex justify-between w-full bg-opacity-20 px-1 md:px-2 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
             <span className="animate-pulsing "
             >
@@ -44,7 +44,7 @@ function Preview({ title, children, containerStyles,  windowStyle }: EllipsisTex
         >
           <Popover.Panel className={`fixed top-1/4 left-1/2 -translate-x-1/2 z-9999 backdrop-blur-sm mt-3 w-screen max-w-sm px-4 sm:px-0 lg:max-w-3xl text-center ${windowStyle ? windowStyle: ""}`}>
           {({ close }) => (
-            <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5" onClick={()=>close()}> {/* delete this if you don't want to close the Panel */}
+            <div className="-mx-4 md:-mx-0 overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5" onClick={()=>close()}> {/* delete this if you don't want to close the Panel */}
               {children}
             </div>
           )}

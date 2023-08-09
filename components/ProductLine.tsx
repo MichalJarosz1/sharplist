@@ -84,7 +84,9 @@ const ProductLine = ({data, handleChange, applied}: DataSetProp<Product>) =>
         </div>
         <PlusIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40" aria-hidden="true" onClick={handleIncrement} />
         <InputAndButton title={data.Unit} handleValidText={handleUnitChange} />
+        {window.innerWidth > 768 &&
         <InputAndButton title={data.Tags} handleValidText={handleTagChange}  />
+        }
         <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleDelete}/>
     </div>
   )

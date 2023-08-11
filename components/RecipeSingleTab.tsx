@@ -1,7 +1,7 @@
 "use client"
 
 import { Recipe, RecipeMap } from "@/utils/Recipe"
-import { SearchBar, ProductLine, RecipeLineShort, AddProductBar } from "@/components"
+import { SearchBar, ProductLine, AddProductBar, RecipeEditNav, ProductShortLine } from "@/components"
 
 import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
@@ -41,7 +41,10 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
             {...provided.draggableProps} 
             ref={provided.innerRef}
             >
-              <ProductLine data={item} handleChange={handleEdit} applied={true} />
+              {window.innerWidth > 768 &&
+              <ProductLine data={item} handleChange={handleEdit} applied={true} /> ||
+              <ProductShortLine data={item} handleChange={handleEdit} applied={true} /> 
+              }
             </div>
           )
           }
@@ -172,7 +175,6 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
         break;
       case ActionType.increment:
         isValidChange = handleChange( { id: recipe.id, action: ActionType.increment} );
-        console.log("handleEdit SingleTab");
         break;
       case ActionType.decrement:
         isValidChange = handleChange( { id: recipe.id, action: ActionType.decrement} );
@@ -207,7 +209,7 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
           </button>
       </div>
       <AddProductBar onAdd={handleAdd}/>
-      <RecipeLineShort data={recipe} handleChange={handleRecipeChange} />
+      <RecipeEditNav data={recipe} handleChange={handleRecipeChange} />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="ProductsMain">
           {(provided) => (

@@ -22,7 +22,7 @@ export default function SearchBar({ onSearch, styles, placeholder }: SearchBarPr
       onChange={handleSearch}
       className={styles + " flex-nowrap flex"}
       placeholder={placeholder || "Search"}
-      onKeyDown={(e)=>
+      onKeyDown={(e) =>
         {
           if (e.key === 'Escape') 
           {

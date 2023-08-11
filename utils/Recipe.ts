@@ -208,7 +208,7 @@ export class Recipe
         this.Products.forEach(p => 
         {
             content += Recipe.productMapHandle.getByID(p.ArticleID)?.Name + " " 
-            + p.Number + " " 
+            + Number(Number(p.Number).toPrecision(4)) + " " 
             + Recipe.productMapHandle.getByID(p.ArticleID)?.Unit + "\n";
         })
 
@@ -218,7 +218,7 @@ export class Recipe
     printShort(): string
     {
         
-        return this.Name + " " + (this.Number === 0 ? "" : this.Number);
+        return this.Name + " " + (this.Number === 0 ? "" : Number(Number(this.Number).toPrecision(4)) );
     }
 
     printProductsOnly(): string
@@ -227,7 +227,7 @@ export class Recipe
 
         this.Products.forEach(p => 
         {
-            content += Recipe.productMapHandle.getByID(p.ArticleID)?.Name + " " + p.Number + " ";
+            content += Recipe.productMapHandle.getByID(p.ArticleID)?.Name + " " + Number(Number(p.Number).toPrecision(4))  + " ";
         })
 
         return content;

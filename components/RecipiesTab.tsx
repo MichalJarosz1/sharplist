@@ -1,14 +1,13 @@
 "use client"
 
 import { Recipe, RecipeMap } from "@/utils/Recipe"
-import { SearchBar, AddRecipeBar, RecipeLine } from "@/components"
+import { SearchBar, AddRecipeBar, RecipeLine, RecipeSingleTab, RecipeShortLine } from "@/components"
 
 import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from "react"
 
 import { ActionType, DatasetChangeHandleProps } from "@/types"
 import { DragDropContext, Draggable, DropResult, Droppable } from "react-beautiful-dnd"
-import RecipeSingleTab from "./RecipeSingleTab"
 import { Product, ProductMap } from "@/utils/Product"
 
 
@@ -19,9 +18,9 @@ const recipiesMap = RecipeMap.getInstance();
 
 const RecipiesTab = ( {tab}: {tab: boolean}) => 
 {
-  const [products, setProducts] = useState(ProductMap.getInstance());
-  const [recipies, setRecipies] = useState(recipiesMap.getSortedArray());
-  const [subTab, setSubTab] = useState(Recipe.NotValid);
+  const [ products, setProducts ] = useState(ProductMap.getInstance());
+  const [ recipies, setRecipies ] = useState(recipiesMap.getSortedArray());
+  const [ subTab, setSubTab ] = useState(Recipe.NotValid);
 
   useEffect(
     ()=>setSubTab(Recipe.NotValid),
@@ -287,7 +286,10 @@ const RecipiesTab = ( {tab}: {tab: boolean}) =>
           {...provided.draggableProps} 
           ref={provided.innerRef}
           >
-            <RecipeLine data={item} handleChange={handleChange}/>
+            {window.innerWidth > 768 &&
+            <RecipeLine data={item} handleChange={handleChange}/> ||
+            <RecipeShortLine data={item} handleChange={handleChange}/> 
+            }
           </div>
         )
         }

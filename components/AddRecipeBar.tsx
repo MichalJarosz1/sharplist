@@ -30,7 +30,7 @@ export default function SearchBar({ onAdd, styles }: AddRecipeBarProps) {
       onChange={ (e) => setName(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Recipe name"
-      className="w-1/3 p-1 rounded-sm bg-sky-200"
+      className="w-1/3 p-1 rounded-sm bg-sky-200 placeholder:md:text-base placeholder:text-sm"
       />
     <input
       type="text"
@@ -38,7 +38,7 @@ export default function SearchBar({ onAdd, styles }: AddRecipeBarProps) {
       onChange={ (e) => setNumber(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Recipe number"
-      className="w-1/3 p-1 rounded-sm bg-cyan-200"
+      className="w-1/3 p-1 rounded-sm bg-cyan-200 placeholder:md:text-base placeholder:text-sm"
     />
     <input
       type="text"
@@ -46,7 +46,7 @@ export default function SearchBar({ onAdd, styles }: AddRecipeBarProps) {
       onChange={ (e) => setTags(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Recipe tags"
-      className="w-1/3 p-1 rounded-sm bg-emerald-200"
+      className="w-1/3 p-1 rounded-sm bg-emerald-200 placeholder:md:text-base placeholder:text-sm"
     />
     </div>
   );

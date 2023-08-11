@@ -1,12 +1,11 @@
 import { Recipe } from "@/utils/Recipe";
-import { InputAndButton, Preview } from ".";
+import { EditPopup, HybridField, InputAndButton, Preview } from ".";
 import { ActionType, DataSetProp } from "@/types"
 //import { CheckCircleIcon, CheckIcon, MinusCircleIcon, MinusIcon, PlusIcon, TrashIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { MinusIcon, PlusIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { ProductMap } from "@/utils/Product";
 
 
-const RecipeLine = ({data, handleChange}: DataSetProp<Recipe>) => 
+const RecipeShortLine = ({data, handleChange}: DataSetProp<Recipe>) => 
 {
     const handleNameChange = (newText: string): boolean => 
     {
@@ -55,32 +54,45 @@ const RecipeLine = ({data, handleChange}: DataSetProp<Recipe>) =>
       ${data.number > 0 ? "bg-indigo-600 hover:bg-violet-800" :
       "bg-sky-500 hover:bg-violet-600 bg-opacity-60" }`}>
         <XMarkIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleClear}/>
-        <InputAndButton title={data.name} handleValidText={handleNameChange} />
+        <EditPopup title={data.name} panelStyle="bg-sky-300" windowStyle="ring-blue-500">
+          <div className="grid grid-cols-1 bg-opacity-80 rounded-md z-[100] ">
+            <HybridField title={data.name} 
+              fieldName="Name"
+              setTitle={handleNameChange}
+              containerStyle="recipe__edit bg-sky-200"
+              inputStyle="recipe__edit__input bg-sky-200"
+            />
+            <HybridField title={Number(data.number.toPrecision(4)).toString()} 
+              fieldName="Number"
+              setTitle={handleNumberChange}
+              containerStyle="recipe__edit bg-blue-200"
+              inputStyle="recipe__edit__input bg-blue-200"
+            />
+            <HybridField title={data.tags} 
+              fieldName="Tags"
+              setTitle={handleTagChange}
+              containerStyle="recipe__edit bg-sky-200"
+              inputStyle="recipe__edit__input bg-sky-200"
+            />
+            <div className="recipe__edit bg-blue-200">
+              <span>Products</span>
+              <span>{">"}</span>
+              <div className="recipe__edit__input bg-blue-200"
+                onClick={handleTabChange}
+              >
+                Edit...
+              </div>
+            </div>
+
+          </div>
+        </EditPopup>
         <MinusIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleDecrement} />
         <InputAndButton title={data.number.toString()} handleValidText={handleNumberChange} />
         <PlusIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleIncrement} />
-        <Preview title={data.printProductsOnly()} containerStyles="text-black ">
-          <div
-              className="absolute top-1 right-1 p-2 bg-slate-600 text-white rounded-md cursor-pointer hover:bg-slate-700 opacity-100 z-30"
-            >
-              Esc
-          </div>
-          <div onClick={handleTabChange} className="relative grid gap-8 bg-sky-200 bg-opacity-70 p-7 lg:grid-cols-2">
-            {
-              data.products.map((product, key) => (
-                <div key={key}>
-                  {ProductMap.getInstance().getByID(product.ArticleID)?.Name + " " + product.Number + " " + ProductMap.getInstance().getByID(product.ArticleID)?.Unit}
-                </div>
-              ))
-            }
-          </div>
-        </Preview>
-        {window.innerWidth > 768 &&
-          <InputAndButton title={data.tags} handleValidText={handleTagChange} />
-        }
+
         <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleDelete}/>
     </div>
   )
 }
 
-export default RecipeLine
+export default RecipeShortLine

@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='relative m-1'
+      <body className='relative m-1 -z-50' 
             style={{
               //backgroundImage: `url('/wallpaper-that-says-desert-it.jpg')`,
               //backgroundImage: `url('/cool-background.png')`,

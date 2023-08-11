@@ -22,7 +22,7 @@ const MainMenu = ({text}: CustomMenuProps) =>
 
   return (
     <Menu>
-    <Menu.Button className="w-min text-gray-700 p-2 m-2 hover:bg-slate-600 hover:bg-opacity-20 rounded-md"> {text}
+    <Menu.Button id="6" className="w-min text-gray-700 p-2 m-2 hover:bg-slate-600 hover:bg-opacity-20 rounded-md"> {text}
     </Menu.Button>
     <Menu.Items 
       className="absolute left-1/2 transform -translate-x-1/2 mt-2 z-50 backdrop-blur-sm bg-amber-300 bg-opacity-70 m-1 p-1 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -30,7 +30,7 @@ const MainMenu = ({text}: CustomMenuProps) =>
       {({ active }) => (
         <div onClick={handleLoadDefault}
         className={`${active ? 'bg-amber-500 text-white' : 'text-gray-900'}  
-          group flex w-full items-center rounded-md px-2 py-2 text-sm text-center `} >
+          group flex w-full items-center rounded-md px-2 py-2 md:text-sm text-xs text-center `} >
           <WrenchIcon className="w-5 h-5 mr-2"/>
           <button>
             Load default settings
@@ -42,7 +42,7 @@ const MainMenu = ({text}: CustomMenuProps) =>
       {({ active }) => (
         <div onClick={handleReset}
         className={`${active ? 'bg-amber-500 text-white' : 'text-gray-900'}  
-          group flex w-full items-center rounded-md px-2 py-2 text-sm `} >
+          group flex w-full items-center rounded-md px-2 py-2 md:text-sm text-xs `} >
           <DocumentMinusIcon className="w-5 h-5 mr-2"/>
           <button>
             Reset

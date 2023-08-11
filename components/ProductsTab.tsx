@@ -1,7 +1,7 @@
 "use client"
 
 import { Product, ProductMap } from "@/utils/Product"
-import { SearchBar, AddProductBar, ProductLine } from "@/components"
+import { SearchBar, AddProductBar, ProductLine, ProductShortLine } from "@/components"
 
 import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
@@ -84,7 +84,6 @@ const ProductsTab = () =>
           break;
         case ActionType.updateNumber:
           const num = Number(value);
-          console.log(value); 
           if (!isNaN(num) && num >= 0) 
           {
             product.Number = num;
@@ -166,7 +165,10 @@ const ProductsTab = () =>
           {...provided.draggableProps} 
           ref={provided.innerRef}
           >
-            <ProductLine data={item} handleChange={handleChange} applied={false}/>
+            {window.innerWidth > 768 &&
+            <ProductLine data={item} handleChange={handleChange} applied={false}/> ||
+            <ProductShortLine data={item} handleChange={handleChange} applied={false}/>
+            }
           </div>
         )
         }
@@ -192,8 +194,8 @@ const ProductsTab = () =>
   }
 
   return (
-    <div>
-      <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
+    <div className="-z-30">
+      <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md -z-30">
           <SearchBar onSearch={handleSearch} styles = "w-full bg-slate-300 rounded-r-xl rounded-l-sm"/>
           <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 md:m-2" aria-hidden="true" >
             <NoSymbolIcon className="w-full h-full"/>

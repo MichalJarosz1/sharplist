@@ -32,7 +32,7 @@ export default function SearchBar({ onAdd, styles }: AddProductBarProps) {
       onChange={ (e) => setName(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Product name"
-      className="w-1/4 p-1 rounded-sm bg-sky-200"
+      className="w-1/4 p-1 rounded-sm bg-sky-200 placeholder:md:text-base placeholder:text-xs"
       />
     <input
       type="text"
@@ -40,7 +40,7 @@ export default function SearchBar({ onAdd, styles }: AddProductBarProps) {
       onChange={ (e) => setNumber(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Product number"
-      className="w-1/4 p-1 rounded-sm bg-cyan-200"
+      className="w-1/4 p-1 rounded-sm bg-cyan-200 placeholder:md:text-base placeholder:text-xs"
     />
     <input
       type="text"
@@ -48,7 +48,7 @@ export default function SearchBar({ onAdd, styles }: AddProductBarProps) {
       onChange={ (e) => setUnit(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Product unit"
-      className="w-1/4 p-1 rounded-sm bg-teal-200"
+      className="w-1/4 p-1 rounded-sm bg-teal-200 placeholder:md:text-base placeholder:text-xs"
     />
     <input
       type="text"
@@ -56,7 +56,7 @@ export default function SearchBar({ onAdd, styles }: AddProductBarProps) {
       onChange={ (e) => setTags(e.target.value)}
       onKeyDown={handleEnterKey}
       placeholder="Product tags"
-      className="w-1/4 p-1 rounded-sm bg-emerald-200"
+      className="w-1/4 p-1 rounded-sm bg-emerald-200 placeholder:md:text-base placeholder:text-xs"
     />
     </div>
   );

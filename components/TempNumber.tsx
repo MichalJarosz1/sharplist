@@ -1,7 +1,8 @@
 "use client"
 import { TempNumberProps } from '@/types';
-import { Menu } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import { DocumentCheckIcon } from '@heroicons/react/24/outline';
+import { Fragment } from 'react';
 
 const TempNumber = ({value, isPresent, children, onApply}: TempNumberProps) => 
 {
@@ -12,16 +13,21 @@ const TempNumber = ({value, isPresent, children, onApply}: TempNumberProps) =>
     onApply();
   }
 
-
   return (
     isPresent &&
       <Menu>
-        <Menu.Button className="w-min text-gray-700 md:pr-2 md:mr-2 hover:bg-slate-600 hover:bg-opacity-20 rounded-md text-xs md:text-sm"> 
-        <span className="invisible md:visible">
-          +
-        </span>
-        {n} 
+        <Menu.Button id="3" className="justify-self-end w-min text-gray-700 md:pr-2 md:mr-2 hover:bg-slate-600 hover:bg-opacity-20 rounded-md text-xs md:text-sm"> 
+        +{n} 
         </Menu.Button>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
         <Menu.Items className="absolute z-9999 backdrop-blur-sm bg-amber-300 bg-opacity-70 m-1 p-1 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <Menu.Item>
           {({ active }) => (
@@ -35,6 +41,7 @@ const TempNumber = ({value, isPresent, children, onApply}: TempNumberProps) =>
             </div>
             )}
           </Menu.Item>
+          <Menu.Item>
             <div
               className=" border-t-2 border-amber-100 p-1 m-1">
               <span>
@@ -44,7 +51,9 @@ const TempNumber = ({value, isPresent, children, onApply}: TempNumberProps) =>
                 {children}
               </div>
             </div>
+          </Menu.Item> 
         </Menu.Items>
+        </Transition>
       </Menu>
   )
 

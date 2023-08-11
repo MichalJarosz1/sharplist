@@ -55,7 +55,7 @@ export class Product
 
     print(): string
     {
-        return this.Name + " " + this.Number + " " + this.Unit;
+        return this.Name + " " + Number(Number(this.Number).toPrecision(4)) + " " + this.Unit;
     }
 
     dumpArticle(): ArticleDump

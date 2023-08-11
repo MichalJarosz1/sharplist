@@ -4,7 +4,7 @@ import { ActionType, DataSetProp } from "@/types"
 import { MinusIcon, PlusIcon, TrashIcon, XMarkIcon, ArrowUpLeftIcon } from '@heroicons/react/24/outline'
 
 
-const RecipeLine = ({data, handleChange}: DataSetProp<Recipe>) => 
+const RecipeEditNav = ({data, handleChange}: DataSetProp<Recipe>) => 
 {
     const handleNameChange = (newText: string): boolean => 
     {
@@ -53,14 +53,16 @@ const RecipeLine = ({data, handleChange}: DataSetProp<Recipe>) =>
       "bg-sky-500 hover:bg-violet-600 bg-opacity-50" }`}>
         <ArrowUpLeftIcon className="self-stretch unselectable h-18 w-9 bg-black bg-opacity-30 text-blue-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleTabChange}/>
         <XMarkIcon className="self-stretch unselectable h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleClear}/>
-        <MinusIcon className="self-stretch unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleDecrement} />
-        <PlusIcon className="self-stretch unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40" aria-hidden="true" onClick={handleIncrement} />
         <InputAndButton title={data.name} handleValidText={handleNameChange} />
+        <MinusIcon className="self-stretch unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleDecrement} />
         <InputAndButton title={data.number.toString()} handleValidText={handleNumberChange} />
+        <PlusIcon className="self-stretch unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40" aria-hidden="true" onClick={handleIncrement} />
+        {window.innerWidth > 768 && 
         <InputAndButton title={data.tags} handleValidText={handleTagChange} />
+        }
         <TrashIcon className="self-stretch unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleDelete}/>
     </div>
   )
 }
 
-export default RecipeLine
+export default RecipeEditNav

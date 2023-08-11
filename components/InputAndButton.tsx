@@ -43,31 +43,26 @@ function InputAndButton({ title, containerStyles, handleValidText }: InputAndBut
       setTimeout(() => setPlay(false), 400);
     };
   }, [title])
-  
-  function handleMenuButtonClick() {
-    setTimeout(() => inputRef.current?.focus(), 100);
-  }
-
-  const inputRef = React.useRef<HTMLInputElement>(null);
 
   return (
-    <div className={`flex-1 truncate items-center  ${containerStyles ? containerStyles: ""}`}>
+    <div className={`flex-1 truncate ${containerStyles ? containerStyles: ""}`}>
       <Popover as="div" className="">
-      {({ open }) => (
+      {({ open }) => 
+      (
         <>
         <div>
           <Popover.Button
             id="1" // both server and client must have same ids
-            className="flex-nowrap flex justify-between w-full bg-opacity-20 px-1 md:px-4 py-2 text-xs md:text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-            onClick={handleMenuButtonClick}
+            className="flex-nowrap flex justify-center md:justify-between  w-full bg-opacity-20 px-1 md:px-4 py-2 text-xs md:text-sm font-medium text-black
+             hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
-            <div className="unselectable animate-pulsing"
+            <div className="unselectable animate-pulsing justify-self-end"
             >
               {title}
             </div>
             {window.innerWidth > 768 &&
             <ChevronDownIcon 
-              className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100 invisible md:visible "
+              className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100 invisible md:visible"
               aria-hidden="true"
             />
             }
@@ -82,15 +77,15 @@ function InputAndButton({ title, containerStyles, handleValidText }: InputAndBut
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Popover.Panel>
+          <Popover.Panel className="z-9999">
           {({ close }) => (
             <div className="px-1 py-1">
                   <input
-                    ref={inputRef}
                     className="bg-sky-500 text-white w-full rounded-md px-2 py-2 text-sm"
                     value={text}
                     onChange={(e) => handleInputChange(e.target.value)}
                     onKeyDown={(e)=> {if(handleEnterKey(e)) setTimeout(() => close(), 100)}}
+                    autoFocus
                   />
             </div>
           )}

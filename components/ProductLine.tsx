@@ -63,7 +63,7 @@ const ProductLine = ({data, handleChange, applied}: DataSetProp<Product>) =>
 
     //<div className="flex flex-nowrap justify-between">
   return (
-    <div className={`flex text-opacity-80 border-blue-950 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer z-20
+    <div className={`flex text-opacity-80 border-amber-400 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer z-20
       ${data.Number > 0 ? "bg-amber-500 hover:bg-amber-700 " :
        "bg-amber-300 hover:bg-amber-600 bg-opacity-60" }`}>
         {/*<ChevronUpDownIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-teal-600 hover:bg-opacity-40" aria-hidden="true" onClick={() => {}}/>*/}

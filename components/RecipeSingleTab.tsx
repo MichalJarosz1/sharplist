@@ -202,10 +202,10 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
       <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
           <SearchBar onSearch={handleSearch} placeholder="Search products..." styles = "w-full bg-lime-100"/>
           <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 m-2" aria-hidden="true" >
-            <NoSymbolIcon className="w-full h-full"/>
+            <NoSymbolIcon className="w-full h-full" title="New list"/>
           </button>
           <button type="button" className="h-8 w-8 text-blue-500 m-2" aria-hidden="true">
-            <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> recipiesMap.copyRecipies()}/>
+            <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> recipiesMap.copyRecipies()} title="Copy"/>
           </button>
       </div>
       <AddProductBar onAdd={handleAdd}/>

@@ -64,6 +64,7 @@ function InputAndButton({ title, containerStyles, handleValidText }: InputAndBut
             <ChevronDownIcon 
               className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100 invisible md:visible"
               aria-hidden="true"
+              title="Extend"
             />
             }
           </Popover.Button>

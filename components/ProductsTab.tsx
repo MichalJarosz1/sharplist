@@ -3,7 +3,8 @@
 import { Product, ProductMap } from "@/utils/Product"
 import { SearchBar, AddProductBar, ProductLine, ProductShortLine } from "@/components"
 
-import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentListIcon, LockOpenIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
+
 import { useState } from "react"
 
 import { ActionType, DatasetChangeHandleProps } from "@/types"
@@ -198,10 +199,13 @@ const ProductsTab = () =>
       <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md -z-30">
           <SearchBar onSearch={handleSearch} styles = "w-full bg-slate-300 rounded-r-xl rounded-l-sm"/>
           <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 md:m-2" aria-hidden="true" >
-            <NoSymbolIcon className="w-full h-full"/>
+            <NoSymbolIcon className="w-full h-full" title="New list"/>
           </button>
-          <button type="button" className="h-8 w-8 text-blue-500 md:m-2" aria-hidden="true">
-            <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> productsMap.copyProducts()}/>
+          <button type="button" className="h-8 w-8 text-sky-500 md:m-2" aria-hidden="true">
+            <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> productsMap.copyProducts()} title="Copy"/>
+          </button>
+          <button type="button" className="h-8 w-8 text-slate-400 md:m-2" aria-hidden="true">
+            <LockOpenIcon className="w-full h-full" onClick={()=> productsMap.copyProducts()} title="Edit Mode"/>
           </button>
       </div>
       <AddProductBar onAdd={handleAdd}/>

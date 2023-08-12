@@ -48,7 +48,7 @@ const ProductShortLine = ({data, handleChange, applied}: DataSetProp<Product>) =
     }
     
   return (
-    <div className={`flex text-opacity-80 border-blue-950 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer
+    <div className={`flex text-opacity-80 border-amber-400 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer
       ${data.Number > 0 ? "bg-amber-500 hover:bg-amber-700 " :
        "bg-amber-300 hover:bg-amber-600 bg-opacity-60" }`}>
 

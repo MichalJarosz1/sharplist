@@ -149,7 +149,7 @@ export class Recipe
         {
             const product = allFullProducts[i];
             const shortProduct = this.getProductDumpByID(product.ID);
-            if (shortProduct)
+            if (shortProduct && shortProduct.Number>0)
                 present.push(new Product(product.Name, shortProduct.Number, product.Unit, product.Tags, product.ID));
             else
                 absent.push(new Product(product.Name, 0, product.Unit, product.Tags, product.ID));

@@ -34,6 +34,14 @@ const HybridField = ( {fieldName, title, setTitle, containerStyle, inputStyle }:
       }
   }
 
+  const onBlur = () =>
+  {
+    if(!setTitle(text))
+    {
+      setText(title);
+    }
+  }
+
     return (
       <div className={containerStyle}>
         <span>{fieldName || "Name"}</span>
@@ -47,6 +55,7 @@ const HybridField = ( {fieldName, title, setTitle, containerStyle, inputStyle }:
           onChange={onchange}
           onMouseDown={() => InputRef.current?.focus()}
           onKeyUp={onEnter}
+          onBlur={onBlur}
           />
     </div>
   )

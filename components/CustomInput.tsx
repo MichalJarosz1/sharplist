@@ -31,6 +31,12 @@ const CustomInput = ( {placeholder, title, setTitle, inputStyle }: CustomInputPr
       }
   }
 
+  const onBlur = (): void => 
+  {
+    if(!setTitle(text))
+    setText(title);
+  }
+
   return (
     <input 
       className={inputStyle}
@@ -40,7 +46,8 @@ const CustomInput = ( {placeholder, title, setTitle, inputStyle }: CustomInputPr
       placeholder={placeholder}
       onChange={onchange}
       onMouseDown={() => InputRef.current?.focus()}
-      onKeyDown={onEnter}
+      onKeyUp={onEnter}
+      onBlur={onBlur}
 
     />
   )

@@ -46,7 +46,7 @@ const HybridField = ( {fieldName, title, setTitle, containerStyle, inputStyle }:
           placeholder={fieldName}
           onChange={onchange}
           onMouseDown={() => InputRef.current?.focus()}
-          onKeyDown={onEnter}
+          onKeyUp={onEnter}
           />
     </div>
   )

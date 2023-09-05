@@ -1,10 +1,10 @@
 "use client"
 
 import { Recipe, RecipeMap } from "@/utils/Recipe"
-import { SearchBar, AddRecipeBar, RecipeLine, RecipeSingleTab, RecipeShortLine } from "@/components"
+import { SearchBar, AddRecipeBar, RecipeLine, RecipeSingleTab, RecipeShortLine, NavBar } from "@/components"
 
 import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { ActionType, DatasetChangeHandleProps } from "@/types"
 import { DragDropContext, Draggable, DropResult, Droppable } from "react-beautiful-dnd"
@@ -16,16 +16,11 @@ const recipiesMap = RecipeMap.getInstance();
 //recipiesMap.loadDefault();
 
 
-const RecipiesTab = ( {tab}: {tab: boolean}) => 
+const RecipiesTab = () => 
 {
   const [ products, setProducts ] = useState(ProductMap.getInstance());
   const [ recipies, setRecipies ] = useState(recipiesMap.getSortedArray());
   const [ subTab, setSubTab ] = useState(Recipe.NotValid);
-
-  useEffect(
-    ()=>setSubTab(Recipe.NotValid),
-    [tab]
-  )
 
   const handleSearch = (searchTerm: string): void => {
     setRecipies(recipiesMap.getSearchSorted(searchTerm))
@@ -313,37 +308,40 @@ const RecipiesTab = ( {tab}: {tab: boolean}) =>
   }
 
   return (
-    <div>
-      {
-      subTab.id === -1 &&
-       <>
-       <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
-          <SearchBar onSearch={handleSearch} placeholder="Search recipies" styles="w-full bg-slate-300 rounded-r-xl rounded-l-sm" />
-          <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 m-2" aria-hidden="true">
-            <NoSymbolIcon className="w-full h-full" title="New list"/>
-          </button>
-          <button type="button" className="h-8 w-8 text-blue-500 m-2" aria-hidden="true">
-            <ClipboardDocumentListIcon className="w-full h-full" onClick={() => recipiesMap.copyRecipies()} title="Copy"/>
-          </button>
-        </div><AddRecipeBar onAdd={handleAdd} /><DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="ProductsMain">
-              {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {components}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-      </>
-      || <RecipeSingleTab recipe={subTab} handleSwitchBackTab={()=>setSubTab(Recipe.NotValid)} handleChange={handleChange}/>
-      
-    }
+    <main className="md:m-2 -z-40">
+      <NavBar/>
+      <div>
+        {
+        subTab.id === -1 &&
+         <>
+         <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
+            <SearchBar onSearch={handleSearch} placeholder="Search recipies" styles="w-full bg-slate-300 rounded-r-xl rounded-l-sm" />
+            <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 m-2" aria-hidden="true">
+              <NoSymbolIcon className="w-full h-full" title="New list"/>
+            </button>
+            <button type="button" className="h-8 w-8 text-blue-500 m-2" aria-hidden="true">
+              <ClipboardDocumentListIcon className="w-full h-full" onClick={() => recipiesMap.copyRecipies()} title="Copy"/>
+            </button>
+          </div><AddRecipeBar onAdd={handleAdd} /><DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="ProductsMain">
+                {(provided) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {components}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+        </>
+        || <RecipeSingleTab recipe={subTab} handleSwitchBackTab={()=>setSubTab(Recipe.NotValid)} handleChange={handleChange}/>
+                
+      }
 
-    </div>
+      </div>
+    </main>
   );
 }
 

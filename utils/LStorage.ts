@@ -8,6 +8,8 @@ export class LStorage
 
     addSavables(savable: Savable<any>): boolean
     {
+        //console.log("Savable: ", savable);
+
         if (this.savables.has(savable.storageKey)) 
             return false;
         
@@ -26,6 +28,12 @@ export class LStorage
         return value && JSON.parse(value);
     }
 
+    getObjectJSON(key: string): JSON
+    {
+        var value = localStorage.getItem(key);
+        return value && JSON.parse(value);
+    }
+
     saveObjects()
     {
         this.savables.forEach((savable, key) => 
@@ -37,7 +45,8 @@ export class LStorage
 
     resetObjects()
     {
-        this.savables.forEach((savable) => savable.reset())
+        this.savables.forEach((savable) => savable.reset());
+        this.saveObjects();
     }
 
     loadLast()
@@ -77,6 +86,27 @@ export class LStorage
             this.loadLast();
             this.saveObjects();
         }
+    }
+
+    download(name: string)
+    {
+        let content: Object[] = [];
+
+        this.savables.forEach((savable, key) => 
+        {
+            content.concat(this.getObject(key));
+        })
+
+        const blob = new Blob([JSON.stringify(content)], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+    
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name || "nazwa pliku.JSON";
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     private constructor() {};

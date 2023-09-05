@@ -6,5 +6,5 @@ export default interface Savable<T>
     loadDefault(): void;
     save():void;
     reset():void;
-    get storageKey(): string
+    get storageKey(): string // should be the same for local as well as Database sql
 }

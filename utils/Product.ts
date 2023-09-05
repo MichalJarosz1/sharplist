@@ -247,7 +247,7 @@ export class ProductMap implements Savable<ArticleDump>
 
     get storageKey(): string
     {
-        return "Products";
+        return "product_list_list";
     }
 
     private constructor() {};

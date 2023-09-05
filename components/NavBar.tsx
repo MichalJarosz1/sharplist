@@ -1,21 +1,25 @@
-"use client"
-import { BellIcon, SparklesIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { BellIcon, HomeIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import TabButton from "./TabButton";
-import { NavBarProps } from '@/types';
-import { Preview } from '.';
+import Link from 'next/link';
 
 
 
-const nav = ({handleTabChange}: NavBarProps) => {
+const nav = () => {
+
+  const handleTabChange = (a:any): void =>
+  {
+
+  }
+  
   return (
     <nav className="flex items-center justify-between mb-2 p-4 bg-slate-500 bg-opacity-40 text-opacity-80 font-extrabold rounded-md">
-      <button className="flex items-center" onClick={() => handleTabChange("")}>
-        <SparklesIcon className="h-8 w-8 mr-2 text-slate-300" aria-hidden="true" title="Home"/>
-      </button>
+      <Link type="button" href="/" className="flex items-center">
+        <HomeIcon className="h-8 w-8 mr-2 text-slate-300" aria-hidden="true" title="Home"/>
+      </Link>
       <div className="flex flex-grow items-center justify-center space-x-4">
-        <TabButton handleClick={() => handleTabChange("Products")} title="Products" elementStyles=' '/>
-        <TabButton handleClick={() => handleTabChange("Recipies")} title="Recipies" elementStyles=' '/>
+        <TabButton title="Products"  href="/Products" elementStyles=' '/>
+        <TabButton title="Recipies"  href="/Recipies" elementStyles=' '/>
       </div>
       <div className="">
         <BellIcon className="h-8 w-8 text-slate-300" aria-hidden="true" title="Notifications"/>

@@ -268,7 +268,7 @@ export class RecipeMap implements Savable<RecipeDump>
 
     get storageKey(): string
     {
-        return "Recipies";
+        return "recipe_list_list";
     }
 
 

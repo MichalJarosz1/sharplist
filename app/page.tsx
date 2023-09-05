@@ -1,42 +1,61 @@
 "use client"
-import { Footer, MainPlaceholder, NavBar, ScrollToTopButton } from "@/components";
+import { Footer, MainMenu, NavBar, ScrollToTopButton } from "@/components";
 import { LStorage } from "@/utils/LStorage";
 import { ProductMap } from "@/utils/Product";
 import { RecipeMap } from "@/utils/Recipe";
-import dynamic from "next/dynamic";
-import { useState } from "react";
+import { createShare } from "./actions";
+import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from "next/navigation";
 
-const ProductsTab = dynamic(() => import("@/components/ProductsTab"), { ssr: false });
-const RecipiesTab = dynamic(() => import("@/components/RecipiesTab"), { ssr: false });
 
+let LSHandle: LStorage;
 
 if (typeof window !== 'undefined') 
 {
-  const LSHandle = LStorage.getInstance();
+  LSHandle = LStorage.getInstance();
   LSHandle.addSavables(ProductMap.getInstance());
   LSHandle.addSavables(RecipeMap.getInstance());
   LSHandle.loadIfPossible();
+
+  console.log(LSHandle);
 }
 
 export default function Page() 
 {
-  const [tab, setTab] = useState("");
-  const [Switch, setSwitch] = useState(true);
+  const router = useRouter();
 
-  const handleTabChange = (NavTab: string): void =>
-  {
-    setTab(NavTab);
-    setSwitch(!Switch);
+  router.push('/');
+
+  const pathname = window.location.href;
+
+  const handleShare = async () => {
+    const formData = new FormData();
+
+    const uniqueKey = uuidv4(); // Generowanie klucza UUID
+
+    formData.append("hash", uniqueKey);
+
+    LSHandle.savables.forEach(savable => {
+      formData.append(savable.storageKey, JSON.stringify(savable.dumpData()));
+      //console.log(savable.storageKey);
+    });
+
+    //createShare(formData);
+
+    let sharableLink = `${pathname}share/${uniqueKey}`;
+
+    sharableLink = sharableLink.replace("/Products", "/");
+    sharableLink = sharableLink.replace("/Recipies", "/");
+
+    console.log(sharableLink);
+
+    navigator.clipboard.writeText(sharableLink).then(() => { alert(`Sharable link copied: \n(${sharableLink})`) }, () => { alert("coping failed") });
   }
 
   return (
       <main className="md:m-2 -z-40">
-        <NavBar handleTabChange={handleTabChange}/>
-        {
-          tab === "" && <MainPlaceholder/> ||
-          tab === "Products" && <ProductsTab/> ||
-          tab === "Recipies" && <RecipiesTab tab={Switch} />
-        }
+        <NavBar/>
+        <MainMenu LSHandle={LSHandle} handleShare={handleShare}/>
         <Footer/>
         <ScrollToTopButton/>
       </main>

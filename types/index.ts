@@ -1,3 +1,4 @@
+import { LStorage } from "@/utils/LStorage";
 import { RecipeMap } from "@/utils/Recipe";
 import { MouseEventHandler, ReactNode } from "react";
 
@@ -108,4 +109,6 @@ export interface CustomMenuProps
   children?: ReactNode;
   handleLoadDefault?: () => void;
   handleReset?: () => void;
+  handleShare?: () => void;
+  LSHandle: LStorage;
 }

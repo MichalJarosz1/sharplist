@@ -4,7 +4,7 @@ export class LStorage
 {
     private wasLastSessionSet = false;
 
-    savables = new Map<string, Savable<any>>;
+    savables : Map<string, Savable<any>>;
 
     addSavables(savable: Savable<any>): boolean
     {
@@ -109,7 +109,10 @@ export class LStorage
         document.body.removeChild(a);
     }
 
-    private constructor() {};
+    private constructor() 
+    {
+        this.savables = new Map<string, Savable<any>>;
+    };
 
     public static getInstance(): LStorage
     {

@@ -23,16 +23,18 @@ const MainMenu = ({text, LSHandle, handleShare }: CustomMenuProps) =>
     }
   }
 
-  const handleImport = (): void =>
+  const handleImport = async () =>
   {
     let hash = prompt("Enter sharable link or hashed key: ", "example: 868b6330-811d-48cb-a85f-23d12f71d843");
 
     if(!hash) return;
     
-    const pathname = window.location.href;
+    const response = await fetch(`/api/path/`);
 
-    hash = hash.replace(pathname+"share/", "");
-    hash = hash.replace(pathname,"");
+    let basePath = response.url.replace("/api/path", "/");
+
+    hash = hash.replace(basePath+"share/", "");
+    hash = hash.replace(basePath + "","");
     
     router.push(`/share/${hash}`);
 

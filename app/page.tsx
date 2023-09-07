@@ -3,9 +3,9 @@ import { Footer, MainMenu, NavBar, ScrollToTopButton } from "@/components";
 import { LStorage } from "@/utils/LStorage";
 import { ProductMap } from "@/utils/Product";
 import { RecipeMap } from "@/utils/Recipe";
-import { createShare } from "./actions";
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from "next/navigation";
+import { createShare } from "./actions";
 
 
 let LSHandle: LStorage;
@@ -17,7 +17,7 @@ if (typeof window !== 'undefined')
   LSHandle.addSavables(RecipeMap.getInstance());
   LSHandle.loadIfPossible();
 
-  console.log(LSHandle);
+  //console.log(LSHandle);
 }
 
 export default function Page() 
@@ -25,8 +25,6 @@ export default function Page()
   const router = useRouter();
 
   router.push('/');
-
-  const pathname = window.location.href;
 
   const handleShare = async () => {
     const formData = new FormData();
@@ -40,14 +38,18 @@ export default function Page()
       //console.log(savable.storageKey);
     });
 
-    //createShare(formData);
+    createShare(formData); ///!!! take it back later
 
-    let sharableLink = `${pathname}share/${uniqueKey}`;
+    const response = await fetch(`/api/path/`);
+
+    let basepath = response.url.replace("/api/path", "/");
+
+    let sharableLink = `${basepath}share/${uniqueKey}`;
 
     sharableLink = sharableLink.replace("/Products", "/");
     sharableLink = sharableLink.replace("/Recipies", "/");
 
-    console.log(sharableLink);
+    //console.log("full URL: ", sharableLink);
 
     navigator.clipboard.writeText(sharableLink).then(() => { alert(`Sharable link copied: \n(${sharableLink})`) }, () => { alert("coping failed") });
   }

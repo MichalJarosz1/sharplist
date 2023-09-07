@@ -15,9 +15,9 @@ if (typeof window !== 'undefined')
   LSHandle = LStorage.getInstance();
   LSHandle.addSavables(ProductMap.getInstance());
   LSHandle.addSavables(RecipeMap.getInstance());
-  LSHandle.loadIfPossible();
-
   console.log(LSHandle.savables.size);
+  
+  LSHandle.loadIfPossible();
 }
 
 export default function Page() 

@@ -25,6 +25,7 @@ export class LStorage
     getObject(key: string): object[]
     {
         var value = localStorage.getItem(key);
+        if(!value) return [];
         return value && JSON.parse(value);
     }
 

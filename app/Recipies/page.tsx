@@ -9,6 +9,7 @@ import { useState } from "react"
 import { ActionType, DatasetChangeHandleProps } from "@/types"
 import { DragDropContext, Draggable, DropResult, Droppable } from "react-beautiful-dnd"
 import { Product, ProductMap } from "@/utils/Product"
+import { LStorage } from "@/utils/LStorage"
 
 
 
@@ -18,6 +19,19 @@ const recipiesMap = RecipeMap.getInstance();
 
 const RecipiesTab = () => 
 {
+
+  let LSHandle: LStorage;
+
+  //if (typeof window !== 'undefined') 
+  {
+    LSHandle = LStorage.getInstance();
+    LSHandle.addSavables(ProductMap.getInstance());
+    LSHandle.addSavables(RecipeMap.getInstance());
+
+    LSHandle.loadIfPossible();
+  }
+
+
   const [ products, setProducts ] = useState(ProductMap.getInstance());
   const [ recipies, setRecipies ] = useState(recipiesMap.getSortedArray());
   const [ subTab, setSubTab ] = useState(Recipe.NotValid);
@@ -310,7 +324,7 @@ const RecipiesTab = () =>
   return (
     <main className="md:m-2 -z-40">
       <NavBar/>
-      <div>
+      <>
         {
         subTab.id === -1 &&
          <>
@@ -340,7 +354,7 @@ const RecipiesTab = () =>
                 
       }
 
-      </div>
+      </>
     </main>
   );
 }

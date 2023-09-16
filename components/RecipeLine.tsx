@@ -51,7 +51,7 @@ const RecipeLine = ({data, handleChange}: DataSetProp<Recipe>) =>
     }
 
   return (
-    <div className={`flex text-opacity-80 border-blue-950 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer + 
+    <div className={`flex text-opacity-80 border-blue-950 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer hover:transition hover:duration-500 hover:ease-in-out hover:scale-[0.995]
       ${data.number > 0 ? "bg-indigo-600 hover:bg-violet-800" :
       "bg-sky-500 hover:bg-violet-600 bg-opacity-60" }`}>
         <XMarkIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleClear}/>

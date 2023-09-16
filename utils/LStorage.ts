@@ -58,6 +58,13 @@ export class LStorage
         })
     }
 
+    loadSavable(savableKey: string)
+    {
+        const savable = this.savables.get(savableKey);
+        
+        savable?.reconstruct(this.getObject(savableKey));
+    }
+
     clear()
     {
         this.savables.forEach((value, key) =>

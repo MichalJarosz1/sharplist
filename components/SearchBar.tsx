@@ -20,7 +20,7 @@ export default function SearchBar({ onSearch, styles, placeholder }: SearchBarPr
       type="text"
       value={searchTerm}
       onChange={handleSearch}
-      className={styles + " flex-nowrap flex"}
+      className={styles + " flex-nowrap flex hover:shadow-lg"}
       placeholder={placeholder || "Search"}
       onKeyDown={(e) =>
         {

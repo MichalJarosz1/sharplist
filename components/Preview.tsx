@@ -23,8 +23,7 @@ function Preview({ title, children, containerStyles,  windowStyle }: EllipsisTex
             id="2" // both server and client must have same ids
             className="flex-nowrap flex justify-between w-full bg-opacity-20 px-1 md:px-2 py-2 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
-            <span className="animate-pulsing "
-            >
+            <span className="animate-pulsing">
               {title}
             </span>
             <ChevronDownIcon
@@ -32,7 +31,7 @@ function Preview({ title, children, containerStyles,  windowStyle }: EllipsisTex
               aria-hidden="true"
             />
           </Popover.Button>
-          <Popover.Overlay className="fixed inset-0 opacity-70 backdrop-blur-sm" />
+          {/*<Popover.Overlay className="fixed inset-0 opacity-70 backdrop-blur-sm" />*/}
         </div>
         <Transition
           as={Fragment}
@@ -43,10 +42,9 @@ function Preview({ title, children, containerStyles,  windowStyle }: EllipsisTex
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-
-          <Popover.Panel className={`fixed top-1/4 left-1/2 -translate-x-1/2 z-9999  mt-3 w-screen max-w-sm px-4 sm:px-0 lg:max-w-3xl text-center ${windowStyle ? windowStyle: ""}`}>
+          <Popover.Panel className={`absolute isolate left-1/2 -translate-x-1/2 -translate-y-1/4 z-9999  mt-3 w-screen max-w-sm px-4 sm:px-0 lg:max-w-3xl text-center ${windowStyle ? windowStyle: ""}`}>
           {({ close }) => (
-            <div className="-mx-4 md:-mx-0 overflow-hidden rounded-lg shadow-lg ring-2 ring-blue-300" onClick={()=>close()}> {/* delete this if you don't want to close the Panel */}
+            <div className="-mx-4 md:-mx-0 overflow-hidden- rounded-lg shadow-lg ring-2 ring-blue-300" onClick={()=>close()}> {/* delete this if you don't want to close the Panel */}
               {children}
             </div>
           )}

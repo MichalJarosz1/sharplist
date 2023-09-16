@@ -31,9 +31,11 @@ export class Recipe
         }
     }
 
+    private static NotValidInstance = new Recipe("", 0, [], "", -1);
+
     static get NotValid(): Recipe
     {
-        return new Recipe("", 0, [], "", -1);
+        return Recipe.NotValidInstance;
     }
 
     set name(name: string)

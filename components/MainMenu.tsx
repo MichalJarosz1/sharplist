@@ -1,5 +1,4 @@
 "use client"
-import { createShare } from '@/app/actions';
 import { CustomMenuProps } from '@/types';
 import { Menu } from '@headlessui/react'
 import { useRouter } from 'next/navigation';
@@ -11,8 +10,11 @@ const MainMenu = ({text, LSHandle, handleShare }: CustomMenuProps) =>
   
   const handleLoadDefault = (): void =>
   {
-    LSHandle.loadDefault();
-    LSHandle.saveObjects();
+    if(confirm("this will irreversibly remove all previous settings."))
+    {
+      LSHandle.loadDefault();
+      LSHandle.saveObjects();
+    }
   }
   
   const handleReset = (): void =>
@@ -38,7 +40,7 @@ const MainMenu = ({text, LSHandle, handleShare }: CustomMenuProps) =>
     
     router.push(`/share/${hash}`);
 
-    console.log(hash);
+    //console.log(hash);
   }
 
   return (

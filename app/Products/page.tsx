@@ -10,12 +10,23 @@ import { useState } from "react"
 import { ActionType, DatasetChangeHandleProps } from "@/types"
 import { DragDropContext, Draggable, DropResult, Droppable } from "react-beautiful-dnd"
 import { RecipeMap } from "@/utils/Recipe"
+import { LStorage } from "@/utils/LStorage"
 
 
 const ProductsTab = () => 
 {
+  let LSHandle: LStorage;
+
+  //if (typeof window !== 'undefined') 
+  {
+    LSHandle = LStorage.getInstance();
+    LSHandle.addSavables(ProductMap.getInstance());
+    LSHandle.addSavables(RecipeMap.getInstance());
+
+    LSHandle.loadSavable(ProductMap.getInstance().storageKey);
+  }
+
   const productsMap = ProductMap.getInstance();
-  //productsMap.loadDefault();
 
   productsMap.updateTNumber(RecipeMap.getInstance().array);
 
@@ -200,7 +211,7 @@ const ProductsTab = () =>
       <NavBar />
       <div className="-z-30">
         <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md -z-30">
-            <SearchBar onSearch={handleSearch} styles = "w-full bg-slate-300 rounded-r-xl rounded-l-sm"/>
+            <SearchBar onSearch={handleSearch} styles = "w-full bg-slate-300 rounded-r-xl rounded-l-sm "/>
             <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 md:m-2" aria-hidden="true" >
               <NoSymbolIcon className="w-full h-full" title="New list"/>
             </button>

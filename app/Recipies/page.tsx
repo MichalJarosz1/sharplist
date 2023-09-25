@@ -22,7 +22,7 @@ const RecipiesTab = () =>
 
   let LSHandle: LStorage;
 
-  //if (typeof window !== 'undefined') 
+  if (typeof window !== 'undefined')
   {
     LSHandle = LStorage.getInstance();
     LSHandle.addSavables(ProductMap.getInstance());

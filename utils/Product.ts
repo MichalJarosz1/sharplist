@@ -23,6 +23,13 @@ export class Product
 {
     private static IDsCreated = 0;
 
+    private static NotValidInstance = new Product("", 0, "", "", -1, 0);
+
+    static get NotValid(): Product
+    {
+        return Product.NotValidInstance;
+    }
+
     public ID!: number;
     
     constructor(public Name: string, public Number: number, public Unit: string, public Tags: string, id?: number, public tNumber: number = 0)
@@ -116,12 +123,12 @@ const defaultSettingProducts =
     new Product("cukinia", 0, "szt.", "warzywa"),
     new Product("czosnek", 0, "worek", "warzywa"),
     new Product("kapusta", 0, "szt.", "warzywa"),
+    new Product("płatki kukurydziane", 0, "opk", "zbożowe"),
     new Product("chleb", 0, "opk", "pieczywo"),
     new Product("bagietka", 0, "opk", "pieczywo"),
     new Product("bułki do piekarnika", 0, "opk", "pieczywo"), //
     new Product("bułki do burgera", 0, "6pak", "pieczywo"), //
     new Product("owsianka", 0, "opk", "zbożowe"),
-    new Product("płatki kukurydziane", 0, "opk", "zbożowe"),
     new Product("mąka", 0, "kg", "zbożowe,substraty"),//
     new Product("batoniki", 0, "opk", "deser"),
     new Product("kurczak na rosół", 0, "kg", "mięso"),
@@ -133,24 +140,24 @@ const defaultSettingProducts =
     new Product("schab wieprzowy", 0, "opk", "mięso"),
     new Product("salami/peperoni", 0, "opk", "mięso"),
     new Product("szynka", 0, "opk", "mięso"),
-    new Product("kiełbasa", 0, "kg", "mięso"),//
-    new Product("ser żółty", 0, "opk", "nabiał, ser"),
-    new Product("mozzarella", 0, "opk", "nabiał, ser"),
-    new Product("parmesan/gran padano", 0, "opk", "nabiał, ser"),
-    new Product("cheddar", 0, "opk", "nabiał, ser"),
+    new Product("kiełbasa", 0, "kg", "mięso"),
+    new Product("jogurt nat.", 0, "opk", "nabiał"),
     new Product("feta", 0, "opk", "nabiał, ser"),
     new Product("twaróg/ser biały", 0, "opk", "nabiał, ser"),//
     new Product("śmietana płynna 20", 0, "opk", "nabiał"),
     new Product("śmietana płynna 30", 0, "opk", "nabiał"),
     new Product("śmietana gęsta 20", 0, "opk", "nabiał"),//
-    new Product("jogurt nat.", 0, "opk", "nabiał"),
-    new Product("jajka", 0, "opk", "nabiał"),
-    new Product("mleko", 0, "opk", "nabiał"),
-    new Product("masło", 0, "opk", "nabiał"),
+    new Product("ser żółty", 0, "opk", "nabiał, ser"),
+    new Product("mozzarella", 0, "opk", "nabiał, ser"),
+    new Product("parmesan/gran padano", 0, "opk", "nabiał, ser"),
     new Product("schabowe", 0, "2-pak", "gotowe"),
     new Product("cordon bleu", 0, "2-pak", "gotowe"),
     new Product("lasagna", 0, "2-pak", "gotowe"),
     new Product("frytki mrożone", 0, "opk", "gotowe"),
+    new Product("cheddar", 0, "opk", "nabiał, ser"),
+    new Product("mleko", 0, "opk", "nabiał"),
+    new Product("masło", 0, "opk", "nabiał"),
+    new Product("jajka", 0, "opk", "nabiał"),
     new Product("sól", 0, "opk", "przyprawy"),
     new Product("pieprz", 0, "opk", "przyprawy"),
     new Product("papryka słodka", 0, "opk", "przyprawy"),

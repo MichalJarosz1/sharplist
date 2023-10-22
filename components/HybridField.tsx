@@ -7,12 +7,13 @@ export interface HybridFieldProps
   fieldName?:string;
   title:string;
   setTitle:(newTitle:string) => boolean;
+  handleEnter?:() => void;
   containerStyle?: string;
   inputStyle?: string;
 }
 
 
-const HybridField = ( {fieldName, title, setTitle, containerStyle, inputStyle }: HybridFieldProps) => 
+const HybridField = ( {fieldName, title, setTitle, handleEnter, containerStyle, inputStyle }: HybridFieldProps) => 
 {
   const [text, setText] = useState(title);
 
@@ -31,6 +32,10 @@ const HybridField = ( {fieldName, title, setTitle, containerStyle, inputStyle }:
         {
           setText(title);
         }
+        if(handleEnter)
+        {
+          handleEnter();
+        }
       }
   }
 
@@ -44,7 +49,7 @@ const HybridField = ( {fieldName, title, setTitle, containerStyle, inputStyle }:
 
     return (
       <div className={containerStyle}>
-        <span>{fieldName || "Name"}</span>
+        <span className="mx-1">{fieldName || "Name"}</span>
         <span>{">"}</span>
         <input 
           className={inputStyle}

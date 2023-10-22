@@ -1,9 +1,9 @@
 "use client"
 
-import { Recipe, RecipeMap } from "@/utils/Recipe"
-import { SearchBar, ProductLine, AddProductBar, RecipeEditNav, ProductShortLine } from "@/components"
+import { RecipeMap } from "@/utils/Recipe"
+import { SearchBar, ProductLine, RecipeEditNav, ProductShortLine, AddProductPopup } from "@/components"
 
-import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentListIcon, LockOpenIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
 
 import { ActionType, DatasetChangeHandleProps } from "@/types"
@@ -13,54 +13,62 @@ import { Product } from "@/utils/Product"
 
 interface RecipeProps
 {
-    recipe: Recipe;
+    recipeID: number;
     handleChange(change: DatasetChangeHandleProps, productChange?: DatasetChangeHandleProps, newProduct?: Product): boolean
     handleSwitchBackTab(): void;
 }
 
-const recipiesMap = RecipeMap.getInstance();
 
-const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipeProps) => 
+const RecipeSingleTab = ({recipeID, handleSwitchBackTab, handleChange} : RecipeProps) => 
 {
-    const getComponents = (data: Product[]): JSX.Element[] =>
+  
+  const [recipesMap, setRecipesMap] = useState(RecipeMap.getInstance());
+  const recipe = recipesMap.getByID(recipeID);
+  if(!recipe) return;
+  
+  const [visibleProducts, setVisibleProducts] = useState(recipe.getSorted());
+  
+  const getComponents = () =>
+  {
+    const components: JSX.Element[] = [];
+  
+    visibleProducts.forEach((item, index) =>
     {
-      const components: JSX.Element[] = [];
-    
-      data.forEach((item, index) =>
       {
-        components.push(
-        <Draggable 
+        components.push
+        (
+          <Draggable 
           draggableId={item.ID.toString()} 
           key={item.ID}
           index={index} 
           disableInteractiveElementBlocking // works on contenteditable components
           >
-          {(provided) => (
-            <div 
-            {...provided.dragHandleProps}
-            {...provided.draggableProps} 
-            ref={provided.innerRef}
-            >
-              {window.innerWidth > 768 &&
-              <ProductLine data={item} handleChange={handleEdit} applied={true} /> ||
-              <ProductShortLine data={item} handleChange={handleEdit} applied={true} /> 
-              }
-            </div>
-          )
-          }
-        </Draggable>
-        );
-      })
-    
-      return components
-    }
-
-  const [components, setComponents] = useState(getComponents(recipe.getSorted()));
-
-  const handleSearch = (searchTerm: string): void => 
-  {
-    setComponents(getComponents(recipe.getSearchSorted(searchTerm)));
+        {(provided) => (
+          <div 
+          {...provided.dragHandleProps}
+          {...provided.draggableProps} 
+          ref={provided.innerRef}
+          >
+            {window.innerWidth > 768 &&
+            <ProductLine data={item} handleChange={handleEdit} applied={true} /> ||
+            <ProductShortLine data={item} handleChange={handleEdit} applied={true} /> 
+            }
+          </div>
+        )
+        }
+      </Draggable>
+      );
+      }
+  })
+    return components
   }
+
+  const components = getComponents();
+
+  const handleSearch = (searchTerm: string): void => {
+
+    setVisibleProducts(recipe.getSearchSorted(searchTerm));
+  };
 
   const handleAdd = (name:string, number: string, unit: string, tags: string): Boolean => 
   {
@@ -71,7 +79,7 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
 
     let product  = new Product(name, num, unit, tags);
     handleChange( { id: recipe.id, action: ActionType.createProduct }, undefined, product );
-    setComponents(getComponents(recipe.getSorted())); //test if needed
+    setVisibleProducts((recipe.getSorted())); //test if needed
     return true;
   }
 
@@ -91,7 +99,7 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
     }
 
     handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: Number(draggableId), action: ActionType.move, value: newID.toString() } );
-    setComponents(getComponents(recipe.getSorted())); //test if needed
+    setVisibleProducts(recipe.getSorted()); //test if needed
   }
 
   const handleEdit = (change: DatasetChangeHandleProps): boolean =>
@@ -105,19 +113,19 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
   
     switch (action) {
       case ActionType.delete:
-        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.delete} );
+        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.delete});
         break;
       case ActionType.updateName:
-        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateName, value: value} );
+        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateName, value: value});
         break;
       case ActionType.updateNumber:
-        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateNumber, value: value}) ;
+        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateNumber, value: value});
         break;
       case ActionType.updateUnit:
-        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateUnit, value: value} );
+        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateUnit, value: value});
         break;
       case ActionType.updateTags:
-        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateTags, value: value} );
+        isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.updateTags, value: value});
         break;
       case ActionType.clear:
         isValidChange = handleChange( { id: recipe.id, action: ActionType.updateProducts }, {id: id, action: ActionType.clear} );
@@ -140,8 +148,9 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
     }
 
     if(isValidChange)
-      setComponents(getComponents(recipe.getSorted())); //test if needed
-
+    {
+      setVisibleProducts(recipe.getSorted()); //test if needed
+    }
     return isValidChange;
   };
 
@@ -196,19 +205,23 @@ const RecipeSingleTab = ({recipe, handleSwitchBackTab, handleChange} : RecipePro
       handleRecipeChange({id: recipe.id, action: ActionType.clearProducts });
     }
   }
+  
 
   return (
     <div>
-      <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
-          <SearchBar onSearch={handleSearch} placeholder="Search products..." styles = "w-full bg-lime-100"/>
-          <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 m-2" aria-hidden="true" >
+      <div className="flex flex-row justify-between mb-1 h-max rounded-md place-items-center ">
+          <SearchBar onSearch={handleSearch} placeholder="Search products..."/>
+          <AddProductPopup onAdd={handleAdd} styles=""/>
+          <button type="button" onClick={resetList} className="w-8 h-8 mx-1 text-red-500 hover:text-red-700" aria-hidden="true" >
             <NoSymbolIcon className="w-full h-full" title="New list"/>
           </button>
-          <button type="button" className="h-8 w-8 text-blue-500 m-2" aria-hidden="true">
-            <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> recipiesMap.copyRecipies()} title="Copy"/>
-          </button>
+          <button type="button" className="w-8 h-8 mx-1 text-sky-500 hover:text-sky-700" aria-hidden="true">
+              <ClipboardDocumentListIcon className="w-full h-full" onClick={() => recipesMap.copyRecipies()} title="Copy"/>
+            </button>
+            <button type="button" className="w-8 h-8 mx-1 text-slate-400 hover:text-slate-600" aria-hidden="true">
+              <LockOpenIcon className="w-full h-full" onClick={()=> {}} title="Edit Mode"/>
+            </button>
       </div>
-      <AddProductBar onAdd={handleAdd}/>
       <RecipeEditNav data={recipe} handleChange={handleRecipeChange} />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="ProductsMain">

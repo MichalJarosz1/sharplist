@@ -47,7 +47,7 @@
 /* START: components defs */
 
 .product__edit{
-  @apply grid grid-cols-8 border-2 border-orange-200 rounded-md;
+  @apply grid grid-cols-8 lg:grid-cols-12 mb-0.5 hover:ring-2 ring-orange-400 border-2 border-orange-200 rounded-md;
 }
 
 .product__edit :first-child{
@@ -58,24 +58,35 @@
 }
 
 .product__edit__input{
-  @apply col-span-5 focus:outline-amber-500 rounded-sm p-1 pl-2 shadow-sm text-opacity-90 text-amber-700 font-medium text-center;
+  @apply col-span-5 lg:col-span-9 focus:outline-none focus:ring focus:ring-red-300  focus:border-amber-500 rounded-sm p-1 pl-2 shadow-2xl text-opacity-90 text-amber-700 font-medium text-center
 }
 
 .recipe__edit{
-  @apply grid grid-cols-8 border-2 border-indigo-200 rounded-md;
+  @apply grid grid-cols-8 lg:grid-cols-12 mb-0.5 hover:ring-2 ring-indigo-400 border-2 border-indigo-200 rounded-md;
 }
 
 .recipe__edit :first-child{
-  @apply align-middle p-1 pl-2 text-opacity-90 font-semibold text-justify col-span-2
+  @apply align-middle py-1 px-2 text-opacity-90 font-semibold text-justify col-span-2
 }
 .recipe__edit :nth-child(2){
-  @apply align-middle p-1 pl-2 text-opacity-90 font-semibold text-justify col-span-1 
+  @apply align-middle py-1 px-2 text-opacity-90 font-semibold text-justify col-span-1 
 }
 
 .recipe__edit__input{
-  @apply col-span-5 focus:outline-sky-500 rounded-sm p-1 pl-2 shadow-sm text-opacity-90 text-blue-700 font-medium text-center;
+  @apply col-span-5 lg:col-span-9 focus:outline-none focus:ring focus:border-indigo-300 rounded-sm py-1 px-2 shadow-sm text-opacity-90 text-blue-700 font-medium text-center;
 }
 
+.recipe__edit__input :first-child{
+  @apply text-center;
+}
+
+.recipe__line{
+  @apply flex text-opacity-80 border-sky-600 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer hover:transition hover:duration-500 hover:ease-in-out;
+}
+
+.product__line{
+  @apply flex text-opacity-80 border-amber-400 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer;
+}
 
 /* END: components defs */
 
@@ -143,5 +154,7 @@
 }
 
 textarea:focus, input:focus{
-  outline-color: slategray;
+  outline-offset: -2px;
+  /*outline: 2px dotted transparent;*/
+  outline: 2px none transparent
 }

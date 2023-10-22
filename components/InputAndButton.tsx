@@ -1,11 +1,11 @@
 "use client";
-import { Popover , Transition } from '@headlessui/react';
+import { Popover, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { InputAndButtonProps } from '@/types';
 import React from 'react';
 
-function InputAndButton({ title, containerStyles, handleValidText }: InputAndButtonProps) {
+function InputAndButton({ title, containerStyles, chevronStyles, handleValidText }: InputAndButtonProps) {
   const [text, setText] = useState(title);
   const [play, setPlay ] = useState(false);
 
@@ -62,7 +62,7 @@ function InputAndButton({ title, containerStyles, handleValidText }: InputAndBut
             </div>
             {window.innerWidth > 768 &&
             <ChevronDownIcon 
-              className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100 invisible md:visible"
+              className={`ml-2 -mr-1 h-5 w-5 invisible md:visible ${chevronStyles ? chevronStyles: ""} `}
               aria-hidden="true"
               title="Extend"
             />

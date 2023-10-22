@@ -1,9 +1,9 @@
 "use client"
 
 import { Recipe, RecipeMap } from "@/utils/Recipe"
-import { SearchBar, AddRecipeBar, RecipeLine, RecipeSingleTab, RecipeShortLine, NavBar } from "@/components"
+import { SearchBar, AddRecipeBar, RecipeLine, RecipeSingleTab, RecipeShortLine, NavBar, AddRecipePopup } from "@/components"
 
-import { ClipboardDocumentListIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentListIcon, LockOpenIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
 
 import { ActionType, DatasetChangeHandleProps } from "@/types"
@@ -50,6 +50,7 @@ const RecipiesTab = () =>
     let recipe  = new Recipe(name, num, [], tags);
     recipiesMap.addNew(recipe);
     setRecipies(recipiesMap.getSortedArray());
+    recipiesMap.save();
     return true;
   }
 
@@ -268,8 +269,10 @@ const RecipiesTab = () =>
           break;
       }
       if(isValidChange)
+      {
         recipiesMap.save();
         setRecipies(recipiesMap.getSortedArray());
+      }
     }
 
     return isValidChange;
@@ -316,8 +319,8 @@ const RecipiesTab = () =>
     if (confirm("Czy chcesz utworzyć nową listę?"))
     {
       recipiesMap.flatline();
-      recipiesMap.save();
       setRecipies(recipiesMap.getSortedArray());
+      recipiesMap.save();
     }
   }
 
@@ -328,15 +331,21 @@ const RecipiesTab = () =>
         {
         subTab.id === -1 &&
          <>
-         <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md">
-            <SearchBar onSearch={handleSearch} placeholder="Search recipies" styles="w-full bg-slate-300 rounded-r-xl rounded-l-sm" />
-            <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 m-2" aria-hidden="true">
-              <NoSymbolIcon className="w-full h-full" title="New list"/>
+         <div className="flex flex-row justify-between mb-1 h-max rounded-md place-items-center ">
+            <SearchBar onSearch={handleSearch} placeholder="Search recipies" />
+            <AddRecipePopup onAdd={handleAdd} styles=""/>
+            <button type="button" onClick={resetList} className="w-8 h-8 mx-1 text-red-500 hover:text-red-700" aria-hidden="true">
+              <NoSymbolIcon className=" w-full h-full" title="New list"/>
             </button>
-            <button type="button" className="h-8 w-8 text-blue-500 m-2" aria-hidden="true">
+            <button type="button" className="w-8 h-8 mx-1 text-sky-500 hover:text-sky-700" aria-hidden="true">
               <ClipboardDocumentListIcon className="w-full h-full" onClick={() => recipiesMap.copyRecipies()} title="Copy"/>
             </button>
-          </div><AddRecipeBar onAdd={handleAdd} /><DragDropContext onDragEnd={handleDragEnd}>
+            <button type="button" className="w-8 h-8 mx-1 text-slate-400 hover:text-slate-600" aria-hidden="true">
+              <LockOpenIcon className="w-full h-full" onClick={()=> {}} title="Edit Mode"/>
+            </button>
+          </div>
+
+          <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="ProductsMain">
                 {(provided) => (
                   <div
@@ -350,7 +359,7 @@ const RecipiesTab = () =>
               </Droppable>
             </DragDropContext>
         </>
-        || <RecipeSingleTab recipe={subTab} handleSwitchBackTab={()=>setSubTab(Recipe.NotValid)} handleChange={handleChange}/>
+        || <RecipeSingleTab recipeID={subTab.id} handleSwitchBackTab={()=>setSubTab(Recipe.NotValid)} handleChange={handleChange}/>
                 
       }
 

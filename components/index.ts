@@ -6,6 +6,8 @@ import MainMenu from "./MainMenu"
 import TabButton from "./TabButton"
 import SearchBar from "./SearchBar"
 import AddProductBar from "./AddProductBar"
+import AddProductPopup from "./AddProductPopup"
+import AddRecipePopup from "./AddRecipePopup"
 import AddRecipeBar from "./AddRecipeBar"
 import ProductLine from "./ProductLine"
 import ProductShortLine from "./ProductShortLine"
@@ -21,6 +23,7 @@ import TempNumber from "./TempNumber"
 import HybridField from "./HybridField"
 import CustomInput from "./CustomInput"
 import FileDownloadButton from "./FileDownloadButton"
+import FadeBubble from "./FadeBubble"
 
 
 
@@ -34,6 +37,8 @@ export
     TabButton,
     SearchBar,
     AddProductBar,
+    AddProductPopup,
+    AddRecipePopup,
     AddRecipeBar,
     ProductLine,
     ProductShortLine,
@@ -49,4 +54,5 @@ export
     HybridField,
     CustomInput,
     FileDownloadButton,
+    FadeBubble
 }

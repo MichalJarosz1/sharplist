@@ -91,7 +91,8 @@ export class Recipe
         const productFull = Recipe.productMapHandle.getByID(id);
 
         if(!productShort || !productFull) 
-            return undefined;
+            return undefined    
+        //return Product.NotValid;
 
         return new Product(productFull.Name, productShort.Number, productFull.Unit, productFull.Tags, productShort.ArticleID);
     }
@@ -221,6 +222,11 @@ export class Recipe
     {
         
         return this.Name + " " + (this.Number === 0 ? "" : Number(Number(this.Number).toPrecision(4)) );
+    }
+
+    printShortest(): string
+    {
+        return this.Name;
     }
 
     printProductsOnly(): string
@@ -899,11 +905,11 @@ export class RecipeMap implements Savable<RecipeDump>
         for (let i = 0; i < this.m_Data.length - 1; i++) 
         {     
             if(this.m_Data[i].number > 0)
-                content += this.m_Data[i].printShort() + "\n";
+                content += this.m_Data[i].printShortest() + "\n";
         }
 
         if(this.m_Data[this.m_Data.length - 1].number > 0)
-            content += this.m_Data[this.m_Data.length - 1].printShort();
+            content += this.m_Data[this.m_Data.length - 1].printShortest();
         
         return content;
     }

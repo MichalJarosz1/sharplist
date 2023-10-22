@@ -1,9 +1,9 @@
 "use client"
 
 import { Product, ProductMap } from "@/utils/Product"
-import { SearchBar, AddProductBar, ProductLine, ProductShortLine, NavBar } from "@/components"
+import { SearchBar, ProductLine, ProductShortLine, NavBar, AddProductPopup } from "@/components"
 
-import { ClipboardDocumentListIcon, LockOpenIcon, NoSymbolIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentListIcon, LockOpenIcon, NoSymbolIcon  } from '@heroicons/react/24/outline'
 
 import { useState } from "react"
 
@@ -11,6 +11,7 @@ import { ActionType, DatasetChangeHandleProps } from "@/types"
 import { DragDropContext, Draggable, DropResult, Droppable } from "react-beautiful-dnd"
 import { RecipeMap } from "@/utils/Recipe"
 import { LStorage } from "@/utils/LStorage"
+
 
 
 const ProductsTab = () => 
@@ -45,7 +46,10 @@ const ProductsTab = () =>
 
     let product  = new Product(name, num, unit, tags);
     productsMap.addProduct(product);
+
     setProducts(productsMap.getSortedArray());
+    productsMap.save();
+
     return true;
   }
 
@@ -67,7 +71,7 @@ const ProductsTab = () =>
     //productsMap.moveProductToIndex(Number(draggableId), destination.index);
     productsMap.moveProductByID(Number(draggableId), Number(newID));
     setProducts(productsMap.getSortedArray());
-
+    productsMap.save();
   }
 
   const handleChange = (change: DatasetChangeHandleProps): boolean => {
@@ -75,9 +79,7 @@ const ProductsTab = () =>
     let { value } = change;
     value = value || "";
   
-
     const product = productsMap.getByID(id);
-
 
     let isValidChange = false;
   
@@ -178,7 +180,7 @@ const ProductsTab = () =>
           ref={provided.innerRef}
           >
             {window.innerWidth > 768 &&
-            <ProductLine data={item} handleChange={handleChange} applied={false}/> ||
+            <ProductLine data={item} handleChange={handleChange} applied={false} /> ||
             <ProductShortLine data={item} handleChange={handleChange} applied={false}/>
             }
           </div>
@@ -207,36 +209,34 @@ const ProductsTab = () =>
 
   return (
     <main className="md:m-2 -z-40">
-
-      <NavBar />
-      <div className="-z-30">
-        <div className="flex flex-row justify-between border-2 border-groove mb-1 rounded-md -z-30">
-            <SearchBar onSearch={handleSearch} styles = "w-full bg-slate-300 rounded-r-xl rounded-l-sm "/>
-            <button type="button" onClick={resetList} className="h-8 w-8 text-red-500 md:m-2" aria-hidden="true" >
-              <NoSymbolIcon className="w-full h-full" title="New list"/>
-            </button>
-            <button type="button" className="h-8 w-8 text-sky-500 md:m-2" aria-hidden="true">
-              <ClipboardDocumentListIcon className="w-full h-full" onClick={()=> productsMap.copyProducts()} title="Copy"/>
-            </button>
-            <button type="button" className="h-8 w-8 text-slate-400 md:m-2" aria-hidden="true">
-              <LockOpenIcon className="w-full h-full" onClick={()=> productsMap.copyProducts()} title="Edit Mode"/>
-            </button>
-        </div>
-        <AddProductBar onAdd={handleAdd}/>
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="ProductsMain">
-            {(provided) => (
-              <div 
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {components}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+      <NavBar/>
+      <div className="flex flex-row justify-between mb-1 rounded-md place-items-center  ">
+        <SearchBar onSearch={handleSearch} />
+        <AddProductPopup onAdd={handleAdd} styles=""/>
+        <button type="button" onClick={resetList} className="w-8 h-8 mx-1 text-red-500 hover:text-red-700" aria-hidden="true">
+          <NoSymbolIcon className=" w-full h-full" title="New list"/>
+        </button>
+        <button type="button" className="w-8 h-8 mx-1 text-sky-500 hover:text-sky-700" aria-hidden="true">
+          <ClipboardDocumentListIcon className="w-full h-full" onClick={() => productsMap.copyProducts()} title="Copy"/>
+        </button>
+        <button type="button" className="w-8 h-8 mx-1 text-slate-400 hover:text-slate-600" aria-hidden="true">
+          <LockOpenIcon className="w-full h-full" onClick={()=> {}} title="Edit Mode"/>
+        </button>
       </div>
+
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="ProductsMain">
+          {(provided) => (
+            <div 
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {components}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </main>
   );
 }

@@ -62,31 +62,33 @@ const ProductLine = ({data, handleChange, applied}: DataSetProp<Product>) =>
     }
 
     //<div className="flex flex-nowrap justify-between">
+    const chevronStyles = "text-orange-600 hover:text-orange-900";
+
   return (
-    <div className={` flex text-opacity-80 border-amber-400 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer z-20 hover:transition hover:duration-500 hover:ease-in-out hover:scale-[0.995]
+    <div className={`product__line hover:transition hover:duration-500 hover:ease-in-out hover:scale-[0.995]
       ${data.Number > 0 ? "bg-amber-500 hover:bg-amber-700 " :
        "bg-amber-300 hover:bg-amber-600 bg-opacity-60" }`}>
         {/*<ChevronUpDownIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-teal-600 hover:bg-opacity-40" aria-hidden="true" onClick={() => {}}/>*/}
-        <XMarkIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleClear}/>
-        <InputAndButton title={data.Name} handleValidText={handleNameChange} />
-        <MinusIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleDecrement} />
+        <XMarkIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleClear}/>
+        <InputAndButton title={data.Name} handleValidText={handleNameChange} chevronStyles={chevronStyles}  />
+        <MinusIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleDecrement} />
         <div className="justify-between flex flex-1 items-center">
-          <InputAndButton title={data.Number.toString()} handleValidText={handleNumberChange} />
+          <InputAndButton title={data.Number.toString()} handleValidText={handleNumberChange} chevronStyles={chevronStyles} />
           <TempNumber value={data.tNumber} isPresent={!applied && data.tNumber > 0 } onApply={handleApply}>
             {RecipeMap.getInstance().getActiveRecipiesForProduct(data.ID).map( (recipe, key) => 
             (
-                <div key={key} className="z-9999">
+                <div key={key} >
                   {recipe.name} 
                 </div>
             ))}
           </TempNumber>
         </div>
-        <PlusIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40" aria-hidden="true" onClick={handleIncrement} />
-        <InputAndButton title={data.Unit} handleValidText={handleUnitChange} />
+        <PlusIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleIncrement} />
+        <InputAndButton title={data.Unit} handleValidText={handleUnitChange} chevronStyles={chevronStyles}  />
         {window.innerWidth > 768 &&
-        <InputAndButton title={data.Tags} handleValidText={handleTagChange}  />
+        <InputAndButton title={data.Tags} handleValidText={handleTagChange} chevronStyles={chevronStyles}   />
         }
-        <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleDelete}/>
+        <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleDelete}/>
     </div>
   )
 }

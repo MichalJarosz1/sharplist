@@ -48,46 +48,47 @@ const ProductShortLine = ({data, handleChange, applied}: DataSetProp<Product>) =
     }
     
   return (
-    <div className={`flex text-opacity-80 border-amber-400 rounded-md border-groove border-2 justify-items-start hover:cursor-pointer
+    <div className={`product__line 
       ${data.Number > 0 ? "bg-amber-500 hover:bg-amber-700 " :
        "bg-amber-300 hover:bg-amber-600 bg-opacity-60" }`}>
 
         {/*<ChevronUpDownIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-teal-600 hover:bg-opacity-40" aria-hidden="true" onClick={() => {}}/>*/}
-        <XMarkIcon className="h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleClear}/>
+        <XMarkIcon className="h-18 w-9  bg-black bg-opacity-30 text-orange-600 hover:bg-opacity-40 rounded-md " aria-hidden="true" onClick={handleClear}/>
 
         <EditPopup title={data.Name}>
-        <div className="grid grid-cols-1 bg-opacity-80 rounded-md z-[100] ">
-          <HybridField title={data.Name} 
-            fieldName="Name"
-            setTitle={handleNameChange}
-            containerStyle="product__edit bg-amber-100 "
-            inputStyle="product__edit__input bg-amber-100 "
-          />
-           <HybridField title={Number(data.Number.toPrecision(4)).toString()} 
-              fieldName="Number"
-              setTitle={handleNumberChange}
-              containerStyle="product__edit bg-orange-100"
-              inputStyle="product__edit__input bg-orange-100"
+          <div className="grid grid-cols-1 bg-opacity-80 rounded-md z-[100] ">
+            <HybridField title={data.Name} 
+              fieldName="Name"
+              setTitle={handleNameChange}
+              containerStyle="product__edit bg-amber-100 "
+              inputStyle="product__edit__input bg-amber-100 "
             />
-          <HybridField title={data.Unit} 
-              fieldName="Unit"
-              setTitle={handleUnitChange}
-              containerStyle="product__edit bg-amber-100"
-              inputStyle="product__edit__input bg-amber-100"
-            />
-          <HybridField title={data.Tags} 
-              fieldName="Tags"
-              setTitle={handleTagChange}
-              containerStyle="product__edit bg-orange-100"
-              inputStyle="product__edit__input bg-orange-100"
-            />
-        </div>
+             <HybridField title={Number(data.Number.toPrecision(4)).toString()} 
+                fieldName="Number"
+                setTitle={handleNumberChange}
+                containerStyle="product__edit bg-orange-100"
+                inputStyle="product__edit__input bg-orange-100"
+              />
+            <HybridField title={data.Unit} 
+                fieldName="Unit"
+                setTitle={handleUnitChange}
+                containerStyle="product__edit bg-amber-100"
+                inputStyle="product__edit__input bg-amber-100"
+              />
+            <HybridField title={data.Tags} 
+                fieldName="Tags"
+                setTitle={handleTagChange}
+                containerStyle="product__edit bg-orange-100"
+                inputStyle="product__edit__input bg-orange-100"
+              />
+          </div>
         </EditPopup>
 
-        <MinusIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40" aria-hidden="true" onClick={handleDecrement} />
+        <MinusIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-red-600 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleDecrement} />
         <div className="justify-between flex flex-1 items-center">
           <InputAndButton title={Number(data.Number.toPrecision(4)).toString()}
             handleValidText={handleNumberChange}
+            containerStyles=""
           />
           <TempNumber value={data.tNumber} isPresent={!applied && data.tNumber > 0 } onApply={handleApply}>
             {RecipeMap.getInstance().getActiveRecipiesForProduct(data.ID).map( (recipe, key) => 
@@ -98,8 +99,8 @@ const ProductShortLine = ({data, handleChange, applied}: DataSetProp<Product>) =
             ))}
           </TempNumber>
         </div>
-        <PlusIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40" aria-hidden="true" onClick={handleIncrement} />
-        <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40" aria-hidden="true" onClick={handleDelete} />
+        <PlusIcon className="unselectable h-18 w-9 bg-black bg-opacity-30 text-sky-700 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleIncrement} />
+        <TrashIcon className="unselectable h-18 w-9  bg-black bg-opacity-30 text-stone-900 hover:bg-opacity-40 rounded-md" aria-hidden="true" onClick={handleDelete} />
       
     </div>
   )

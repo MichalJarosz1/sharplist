@@ -37,6 +37,7 @@ export interface AddProductBarProps
     styles?: string;
 }
 
+
 export interface AddRecipeBarProps
 {
     onAdd: (name:string, number: string, tags: string) => Boolean;
@@ -48,6 +49,7 @@ export interface InputAndButtonProps
     title: string;
     btnType?: "button" | "text";
     containerStyles?: string;
+    chevronStyles?: string;
     textStyles?: string;
     handleValidText: (newText: string) => boolean;
 }
@@ -91,8 +93,9 @@ export interface EllipsisTextProps
     title: string;
     handleClick?: MouseEventHandler<HTMLButtonElement>;
     children?: ReactNode;
-    containerStyles?: string
-    windowStyle?: string
+    containerStyles?: string;
+    chevronStyles?: string;
+    windowStyle?: string;
 }
 
 export interface TempNumberProps

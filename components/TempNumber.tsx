@@ -16,7 +16,7 @@ const TempNumber = ({value, isPresent, children, onApply}: TempNumberProps) =>
   return (
     isPresent &&
       <Menu>
-        <Menu.Button id="3" className="justify-self-end w-min bg-amber-800 bg-opacity-30 text-gray-700 md:pr-2 md:mr-2 hover:bg-amber-400 hover:bg-opacity-20 rounded-md text-xs md:text-sm"> 
+        <Menu.Button id="3" className="mx-2 justify-self-end w-min bg-amber-800 bg-opacity-30 text-gray-700 md:pr-2 md:mr-2 hover:bg-amber-400 hover:bg-opacity-20 rounded-md text-xs md:text-sm"> 
         +{n} 
         </Menu.Button>
         <Transition
